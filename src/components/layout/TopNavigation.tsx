@@ -4,8 +4,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
@@ -14,7 +12,8 @@ export default function TopNavigation() {
     const { setTheme } = useTheme()
 
     return (
-        <nav>
+        <nav className="flex justify-between p-[24px]">
+            <h1>Portfolio</h1>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="icon">

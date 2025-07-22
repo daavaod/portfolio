@@ -2,23 +2,26 @@ import type { ReactNode } from "react"
 // libs
 import {
   Card,
-  CardAction,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 
 // types
 interface CardCompProps {
-    children: ReactNode
+    title: string
+    content: string
 }
 
-export default function CardComp({children}:CardCompProps) {
+export default function CardComp({title}:CardCompProps) {
     return (
         <Card>
-            {children}
+            <CardHeader>
+                <CardTitle>{title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p>Card Content</p>
+            </CardContent>
         </Card>
     )
 }
