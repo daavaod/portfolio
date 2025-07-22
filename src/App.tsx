@@ -2,7 +2,6 @@ import './App.css'
 // pages
 import Home from './components/pages/Home'
 // components
-import QueryClientComp from './components/practice/QueryClientComp'
 import TopNavigation from './components/layout/TopNavigation'
 import { ThemeProvider } from './components/theme/ThemeProvider'
 
