@@ -1,14 +1,10 @@
-import Card from '../card/card'
+// components
+import Portfolios from '../portfolios/Portfolios'
 
 function Home() {
+
     return (
-        <div>
-            <div className="grid grid-cols-3 gap-8">
-                <Card title="title" content="content"/>
-                <Card title="title" content="content"/>
-                <Card title="title" content="content"/>
-            </div>
-        </div>
+        <Portfolios />
     )
 }
 

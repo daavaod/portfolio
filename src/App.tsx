@@ -1,9 +1,14 @@
-import './App.css'
+// router
+import {Route, Routes} from 'react-router-dom';
 // pages
 import Home from './components/pages/Home'
+import AdminPanel from './components/pages/AdminPanel'
 // components
 import TopNavigation from './components/layout/TopNavigation'
 import { ThemeProvider } from './components/theme/ThemeProvider'
+
+// styles
+import './App.css'
 
 function App() {
 
@@ -12,8 +17,12 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <main className="flex flex-col h-screen">
         <TopNavigation />
-        {/* <QueryClientComp /> */}
-        <Home />
+        <div className="p-[24px]">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="admin-panel" element={<AdminPanel />} />
+          </Routes>
+        </div>
       </main>
     </ThemeProvider>
     </>

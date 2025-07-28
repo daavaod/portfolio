@@ -9,17 +9,20 @@ import {
 // types
 interface CardCompProps {
     title: string
-    content: string
+    techStack: string[]
 }
 
-export default function CardComp({title}:CardCompProps) {
+export default function CardComp({title, techStack}: CardCompProps) {
     return (
         <Card>
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
             </CardHeader>
             <CardContent>
-                <p>Card Content</p>
+                <p>Tech stack:</p>
+                <ul>
+                    {techStack.map((item, index) => <li key={index}>{item}</li>)}
+                </ul>
             </CardContent>
         </Card>
     )
