@@ -81,39 +81,41 @@ function AddProjectForm() {
                     />
                     <div className="mb-8">
                         <FormLabel className="mb-2">Tech stack</FormLabel>
-                        {techStackItems.map((item) => (
-                            <FormField
-                                key={item.id}
-                                control={form.control}
-                                name="techStackItems"
-                                render={({ field }) => {
-                                return (
-                                    <FormItem
-                                        key={item.id}
-                                        className="flex flex-row items-center gap-2"
-                                    >
-                                        <FormControl>
-                                            <Checkbox
-                                                checked={field.value?.includes(item.id)}
-                                                onCheckedChange={(checked) => {
-                                                return checked
-                                                    ? field.onChange([...field.value, item.id])
-                                                    : field.onChange(
-                                                        field.value?.filter(
-                                                        (value) => value !== item.id
+                        <div className="flex gap-2">
+                            {techStackItems.map((item) => (
+                                <FormField
+                                    key={item.id}
+                                    control={form.control}
+                                    name="techStackItems"
+                                    render={({ field }) => {
+                                    return (
+                                        <FormItem
+                                            key={item.id}
+                                            className="flex flex-row items-center gap-2"
+                                        >
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes(item.id)}
+                                                    onCheckedChange={(checked) => {
+                                                    return checked
+                                                        ? field.onChange([...field.value, item.id])
+                                                        : field.onChange(
+                                                            field.value?.filter(
+                                                            (value) => value !== item.id
+                                                            )
                                                         )
-                                                    )
-                                                }}
-                                            />
-                                        </FormControl>
-                                        <FormLabel className="text-sm font-normal">
-                                            {item.label}
-                                        </FormLabel>
-                                    </FormItem>
-                                )
-                            }}
-                            />
-                        ))}
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="text-sm font-normal">
+                                                {item.label}
+                                            </FormLabel>
+                                        </FormItem>
+                                    )
+                                }}
+                                />
+                            ))}
+                        </div>
                     </div>
                     <Button type="submit" className="w-full">Submit</Button>
                 </form>
