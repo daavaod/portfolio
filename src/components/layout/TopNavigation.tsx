@@ -15,7 +15,7 @@ export default function TopNavigation() {
     return (
         <nav className="flex justify-between p-[24px]">
             <Link to="/">
-                <h1 className="text-xl font-bold">Danijel Avramov</h1>
+                <h1 className="text-2xl font-bold">Danijel Avramov</h1>
                 <h3>Front End Developer</h3>
             </Link>
             <div className="flex gap-[24px]">
