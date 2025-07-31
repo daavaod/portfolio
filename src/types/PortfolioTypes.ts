@@ -2,7 +2,7 @@ export type PortfolioTypes = {
     id?: string;
     name: string;
     description: string;
-    link?: string;
-    linkText?: string;
+    link?: string | undefined;
+    linkText?: string | undefined;
     techStack: string[]
 }

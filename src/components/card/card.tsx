@@ -16,8 +16,8 @@ import Link from "../typography/Link"
 interface CardCompProps {
     title: string
     description: string
-    link: string
-    linkText: string
+    link?: string | undefined
+    linkText?: string | undefined
     techStack: string[]
 }
 
@@ -38,7 +38,7 @@ const CardComp: FC<CardCompProps> = ({
                 {
                     link &&
                     <CardDescription>
-                        <Link link={link} linkText={linkText}></Link>
+                        <Link link={link} linkText={linkText ?? ""}></Link>
                     </CardDescription>
                 }
                 <CardAction>
