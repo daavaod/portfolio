@@ -1,9 +1,10 @@
 import { db } from '../firebase'
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import type { PortfolioTypes } from '../types/PortfolioTypes';
 
+const docRef = collection(db, "portfolios");
+
 async function getPortfolios() {
-  const docRef = collection(db, "portfolios");
   const docSnap = await getDocs(docRef);
 
   const results:PortfolioTypes[] = []
@@ -21,6 +22,14 @@ async function getPortfolios() {
   return results
 }
 
+async function addPortfolio(data: PortfolioTypes) {
+
+  const response = await addDoc(docRef, data);
+  
+  return response
+}
+
 export {
-  getPortfolios
+  getPortfolios,
+  addPortfolio
 }

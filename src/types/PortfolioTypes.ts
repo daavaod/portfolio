@@ -1,8 +1,8 @@
 export type PortfolioTypes = {
-    id: string;
+    id?: string;
     name: string;
     description: string;
-    link: string;
-    linkText: string;
+    link?: string;
+    linkText?: string;
     techStack: string[]
 }

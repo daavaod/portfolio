@@ -3,12 +3,10 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-
 import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,30 +14,34 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
-
-const techStackItems = [
-  {
-    id: "react",
-    label: "React",
-  },
-  {
-    id: "html",
-    label: "HTML",
-  },
-  {
-    id: "css",
-    label: "CSS",
-  },
-] as const
+import { Textarea } from "../ui/textarea"
+// constants
+import { TECHSTACKITEMS } from "../../helpers/constants"
+// api
+import { addPortfolio } from "../../services/api"
+import type { PortfolioTypes } from "@/types/PortfolioTypes"
  
 const formSchema = z.object({
   projectName: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
+  projectDesc: z.string().min(1, {
+    message: "Please enter description.",
+  }),
+  projectLink: z.string().optional(),
+  projectLinkText: z.string(),
   techStackItems: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "You have to select at least one item.",
   }),
 })
+.refine((data) => {
+    // Only validate projectLinkText if projectLink is not empty
+    if (!data.projectLink) return true
+    return data.projectLinkText.length > 0
+  }, {
+    path: ["projectLinkText"],
+    message: "Please enter link text.",
+  })
 
 function AddProjectForm() {
 
@@ -47,14 +49,38 @@ function AddProjectForm() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             projectName: "",
+            projectDesc: "",
+            projectLink: "",
+            projectLinkText: "",
             techStackItems: []
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    // input watchers
+    const projectLinkValue = form.watch("projectLink")
+
+    // handle form submit
+    async function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         console.log(values)
+
+        const data: PortfolioTypes = {
+            name: values.projectName,
+            description: values.projectDesc,
+            link: values.projectLink,
+            techStack: values.techStackItems
+        }
+
+        if (values.projectLinkText) data.linkText = values.projectLinkText
+
+        try {
+            const res = await addPortfolio(data)
+            console.log('res::: ', res)
+        }  catch(error) {
+            console.log('error', error)
+        }
+
     }
 
     return (
@@ -71,9 +97,52 @@ function AddProjectForm() {
                                     <FormControl>
                                         <Input placeholder="Project name" {...field} />
                                     </FormControl>
-                                    <FormDescription>
-                                        Enter project name.
-                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            </div>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="projectDesc"
+                        render={({ field }) => (
+                            <div className="mb-8">
+                                <FormItem>
+                                    <FormLabel>Project description</FormLabel>
+                                    <FormControl>
+                                        <Textarea placeholder="Project description." {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            </div>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="projectLink"
+                        render={({ field }) => (
+                            <div className="mb-8">
+                                <FormItem>
+                                    <FormLabel>Project link</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Project link" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            </div>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="projectLinkText"
+                        disabled={!projectLinkValue}
+                        render={({ field }) => (
+                            <div className="mb-8">
+                                <FormItem>
+                                    <FormLabel>Project link text</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Project link text" {...field} />
+                                    </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             </div>
@@ -82,7 +151,7 @@ function AddProjectForm() {
                     <div className="mb-8">
                         <FormLabel className="mb-2">Tech stack</FormLabel>
                         <div className="flex gap-2">
-                            {techStackItems.map((item) => (
+                            {TECHSTACKITEMS.map((item) => (
                                 <FormField
                                     key={item.id}
                                     control={form.control}

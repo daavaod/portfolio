@@ -1,12 +1,15 @@
+import type { FC } from "react"
 // libs
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription
+  CardDescription,
+  CardAction
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+// components
 import Link from "../typography/Link"
 
 // types
@@ -18,7 +21,13 @@ interface CardCompProps {
     techStack: string[]
 }
 
-export default function CardComp({title, description, link, linkText, techStack}: CardCompProps) {
+const CardComp: FC<CardCompProps> = ({
+    title,
+    description,
+    link,
+    linkText,
+    techStack,
+}) => {
     return (
         <Card>
             <CardHeader>
@@ -32,6 +41,9 @@ export default function CardComp({title, description, link, linkText, techStack}
                         <Link link={link} linkText={linkText}></Link>
                     </CardDescription>
                 }
+                <CardAction>
+                    2024
+                </CardAction>
             </CardHeader>
             <CardContent>
                 <div className="flex gap-2">
@@ -41,3 +53,5 @@ export default function CardComp({title, description, link, linkText, techStack}
         </Card>
     )
 }
+
+export default CardComp
