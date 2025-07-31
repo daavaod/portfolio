@@ -115,7 +115,7 @@ function AddProjectForm() {
                             />
                         ))}
                     </div>
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" className="w-full">Submit</Button>
                 </form>
             </Form>
         </div>
