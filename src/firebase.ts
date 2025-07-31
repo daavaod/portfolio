@@ -24,8 +24,6 @@ const db = getFirestore(app);
 // Initialize analytics
 const analytics = getAnalytics(app);
 
-
-
 export {
   db,
   app,

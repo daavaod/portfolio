@@ -8,7 +8,14 @@ async function getPortfolios() {
 
   const results:PortfolioTypes[] = []
   docSnap.forEach((doc) => {
-    results.push({ id: doc.id, name: doc.data().name, techStack: doc.data().techStack });
+    results.push({
+      id: doc.id,
+      name: doc.data().name,
+      description:doc.data().description,
+      link: doc.data().link,
+      linkText: doc.data().linkText,
+      techStack: doc.data().techStack
+    });
   });
 
   return results
