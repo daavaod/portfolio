@@ -1,5 +1,6 @@
 import { usePortfolios } from '../../hooks/usePortfolios'
 import Card from '../card/card'
+import type { PortfolioTypes } from '@/types/PortfolioTypes'
 
 function Portfolios() {
 
@@ -10,7 +11,7 @@ function Portfolios() {
 
     return (
         <div className="grid grid-cols-3 gap-8">
-            {portfolios?.map((item: any) => (
+            {portfolios?.map((item: PortfolioTypes) => (
                 <Card key={item.id} title={item.name} techStack={item.techStack} />
             ))}
         </div>

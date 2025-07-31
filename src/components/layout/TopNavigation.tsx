@@ -1,4 +1,4 @@
-import { useTheme } from "@/components/theme/ThemeProvider"
+import { useTheme } from "@/hooks/useTheme"
 import { Moon, Sun } from "lucide-react"
 import {
   DropdownMenu,
