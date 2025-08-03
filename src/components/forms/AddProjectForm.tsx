@@ -18,8 +18,9 @@ import { Textarea } from "../ui/textarea"
 // constants
 import { TECHSTACKITEMS } from "../../helpers/constants"
 // api
-import { addPortfolio } from "../../services/api"
 import type { PortfolioTypes } from "@/types/PortfolioTypes"
+// hooks
+import {useAddPortfolio} from "../../hooks/useAddPortfolio"
  
 const formSchema = z.object({
   projectName: z.string().min(2, {
@@ -45,6 +46,8 @@ const formSchema = z.object({
 
 function AddProjectForm() {
 
+    const { mutate: addPortfolio, isPending, error } = useAddPortfolio();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -63,24 +66,29 @@ function AddProjectForm() {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log(values)
-
         const data: PortfolioTypes = {
             name: values.projectName,
             description: values.projectDesc,
             link: values.projectLink,
-            techStack: values.techStackItems
+            techStack: values.techStackItems.map(
+                (id) => TECHSTACKITEMS.find((item) => item.id === id)?.label || id
+            )
         }
 
         if (values.projectLinkText) data.linkText = values.projectLinkText
 
-        try {
-            const res = await addPortfolio(data)
-            console.log('res::: ', res)
-        }  catch(error) {
-            console.log('error', error)
-        }
-
+        addPortfolio(data, {
+            onSuccess: (data) => {
+                console.log(data)
+                form.reset()
+            },
+            onError: (err) => {
+                console.log('onError', err)
+            },
+            onSettled: () => {
+                form.reset()
+            }
+        })
     }
 
     return (
@@ -150,7 +158,7 @@ function AddProjectForm() {
                     />
                     <div className="mb-8">
                         <FormLabel className="mb-2">Tech stack</FormLabel>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-wrap">
                             {TECHSTACKITEMS.map((item) => (
                                 <FormField
                                     key={item.id}
@@ -159,7 +167,6 @@ function AddProjectForm() {
                                     render={({ field }) => {
                                     return (
                                         <FormItem
-                                            key={item.id}
                                             className="flex flex-row items-center gap-2"
                                         >
                                             <FormControl>
@@ -170,7 +177,7 @@ function AddProjectForm() {
                                                         ? field.onChange([...field.value, item.id])
                                                         : field.onChange(
                                                             field.value?.filter(
-                                                            (value) => value !== item.id
+                                                                (value) => value !== item.id
                                                             )
                                                         )
                                                     }}
@@ -186,7 +193,8 @@ function AddProjectForm() {
                             ))}
                         </div>
                     </div>
-                    <Button type="submit" className="w-full">Submit</Button>
+                    <Button type="submit" className="w-full" disabled={isPending}>Submit</Button>
+                    {error ? <p style={{ color: 'red' }}>{(error as Error).message}</p> : null}
                 </form>
             </Form>
         </div>

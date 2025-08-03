@@ -1,5 +1,5 @@
 // components
-import Portfolios from '../portfolios/Portfolios'
+import Portfolios from '../components/portfolios/Portfolios'
 
 function Home() {
 

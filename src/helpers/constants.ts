@@ -12,6 +12,14 @@ export const TECHSTACKITEMS = [
     label: "Vue.js",
   },
   {
+    id: "nodejs",
+    label: "Node.js",
+  },
+  {
+    id: "spfx",
+    label: "SPFx",
+  },
+  {
     id: "html",
     label: "HTML",
   },

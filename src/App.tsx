@@ -1,8 +1,8 @@
 // router
 import {Route, Routes} from 'react-router-dom';
 // pages
-import Home from './components/pages/Home'
-import AdminPanel from './components/pages/AdminPanel'
+import Home from './pages/Home'
+import AdminPanel from './pages/AdminPanel'
 // components
 import TopNavigation from './components/layout/TopNavigation'
 import { ThemeProvider } from './components/theme/ThemeProvider'

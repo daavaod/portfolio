@@ -1,5 +1,5 @@
 // components
-import AddProjectForm from "../forms/AddProjectForm"
+import AddProjectForm from "../components/forms/AddProjectForm"
 
 function AdminPanel() {
     return (

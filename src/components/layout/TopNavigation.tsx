@@ -7,7 +7,6 @@ export default function TopNavigation() {
     const { setTheme, resolvedTheme } = useTheme()
 
     const handleThemeSwitch  = () => {
-        console.log(resolvedTheme)
         if(resolvedTheme === "light") {
             setTheme('dark')
         } else {

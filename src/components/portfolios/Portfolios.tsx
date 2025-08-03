@@ -1,18 +1,18 @@
-import { usePortfolios } from '../../hooks/usePortfolios'
-import Card from '../card/card'
+import { useGetPortfolios } from '../../hooks/useGetPortfolios'
+import PortfolioCard from '../portfolio/PortfolioCard'
 import type { PortfolioTypes } from '@/types/PortfolioTypes'
 
 function Portfolios() {
 
-    const { data: portfolios, isLoading, error } = usePortfolios()
+    const { data: portfolios, isLoading, error } = useGetPortfolios()
 
-    if (isLoading) return <div>Loading...</div>
-    if (error) return <div>Error loading portfolios</div>
+    if (isLoading) return <div>Loading...</div> // TODO create loading comp
+    if (error) return <div>Error loading portfolios</div> // TODO create message component (error, success, info etc.)
 
     return (
         <div className="grid grid-cols-3 gap-8">
             {portfolios?.map((item: PortfolioTypes) => (
-                <Card key={item.id} title={item.name} description={item.description} link={item.link} linkText={item.linkText} techStack={item.techStack} />
+                <PortfolioCard key={item.id} title={item.name} description={item.description} link={item.link} linkText={item.linkText} techStack={item.techStack} />
             ))}
         </div>
     )
