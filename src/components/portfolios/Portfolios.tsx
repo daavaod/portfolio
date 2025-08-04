@@ -12,7 +12,7 @@ function Portfolios() {
     return (
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {portfolios?.map((item: PortfolioTypes) => (
-                <PortfolioCard key={item.id} title={item.name} description={item.description} link={item.link} linkText={item.linkText} techStack={item.techStack} />
+                <PortfolioCard key={item.id} id={item.id} title={item.name} description={item.description} link={item.link} linkText={item.linkText} techStack={item.techStack} />
             ))}
         </div>
     )

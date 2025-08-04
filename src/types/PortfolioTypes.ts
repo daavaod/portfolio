@@ -1,7 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 export type PortfolioTypes = {
-    id?: string;
+    id: string;
     name: string;
     description: string;
     link?: string | undefined;

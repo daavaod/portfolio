@@ -18,7 +18,7 @@ import { Textarea } from "../ui/textarea"
 // constants
 import { TECHSTACKITEMS } from "../../helpers/constants"
 // api
-import type { PortfolioTypes } from "@/types/PortfolioTypes"
+import type { NewPortfolioType } from "@/types/PortfolioTypes"
 // hooks
 import {useAddPortfolio} from "../../hooks/useAddPortfolio"
  
@@ -66,7 +66,7 @@ function AddProjectForm() {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        const data: PortfolioTypes = {
+        const data: NewPortfolioType = {
             name: values.projectName,
             description: values.projectDesc,
             link: values.projectLink,

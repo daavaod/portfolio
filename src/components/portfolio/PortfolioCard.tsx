@@ -6,14 +6,17 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardAction
+  CardAction,
+  CardFooter
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 // components
 import Link from "../typography/Link"
+import CardActions from "./CardActions"
 
 // types
 interface CardCompProps {
+    id: string
     title: string
     description: string
     link?: string | undefined
@@ -22,6 +25,7 @@ interface CardCompProps {
 }
 
 const CardComp: FC<CardCompProps> = ({
+    id,
     title,
     description,
     link,
@@ -29,7 +33,7 @@ const CardComp: FC<CardCompProps> = ({
     techStack,
 }) => {
     return (
-        <Card>
+        <Card className="h-full">
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>
@@ -45,11 +49,14 @@ const CardComp: FC<CardCompProps> = ({
                     2024
                 </CardAction>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-1">
                 <div className="flex gap-2">
                     {techStack.map((item, index) => <Badge variant="secondary" key={index}>{item}</Badge>)}
                 </div>
             </CardContent>
+            <CardFooter className="justify-end">
+                <CardActions id={id} />
+            </CardFooter>
         </Card>
     )
 }
