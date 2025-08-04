@@ -10,7 +10,7 @@ function Portfolios() {
     if (error) return <div>Error loading portfolios</div> // TODO create message component (error, success, info etc.)
 
     return (
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {portfolios?.map((item: PortfolioTypes) => (
                 <PortfolioCard key={item.id} title={item.name} description={item.description} link={item.link} linkText={item.linkText} techStack={item.techStack} />
             ))}
